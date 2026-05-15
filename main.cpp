@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 #include "SearchEngine.h"
 #include "LogManager.h"
 
@@ -14,6 +15,8 @@ int main() {
     int i = 1;
 
     cout << "--- Documents are being indexed ---" << endl;
+
+    auto startTime = chrono::high_resolution_clock::now();
 
     while (true) {
         string fullPath = folderPath + to_string(i) + ".txt";
@@ -35,7 +38,10 @@ int main() {
         return 1;
     }
 
-    cout << "\n" << documentCount << " files scanned and all words are indexed to the list." << endl << endl;
+    auto endTime = chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed = endTime - startTime;
+    cout << "\n" << documentCount << " files scanned and all words are indexed to the list." << endl;
+    cout << "Indexing completed in " << elapsed.count() << " seconds." << endl << endl;
 
     string query;
     int cont;
